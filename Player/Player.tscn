@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://cx1dgd4tj4304"]
+
+[ext_resource type="Texture2D" uid="uid://davaan0qryb4v" path="res://Assets/sprites/SproutLandsSprites/Characters/Basic Charakter Spritesheet.png" id="1_4i61g"]
+[ext_resource type="Script" path="res://Player/Player.gd" id="1_nhtp7"]
+[ext_resource type="Resource" uid="uid://dtds8pvljprqb" path="res://Data/player_1_data.tres" id="2_bmck7"]
+[ext_resource type="Script" path="res://Player/InteractionArea.gd" id="3_xxu1w"]
+[ext_resource type="PackedScene" uid="uid://dgwh86hvudc5t" path="res://UI/Indicators/interact_indicator.tscn" id="4_a5t7g"]
+[ext_resource type="Script" path="res://Player/Inventory.gd" id="5_wsxbo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_urb57"]
+size = Vector2(10, 6)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_46jda"]
+radius = 17.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("inventory")]
+script = ExtResource("1_nhtp7")
+playerData = ExtResource("2_bmck7")
+inventory = NodePath("Inventory")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_4i61g")
+hframes = 4
+vframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_urb57")
+
+[node name="InteractionArea" type="Area2D" parent="." node_paths=PackedStringArray("interactor")]
+script = ExtResource("3_xxu1w")
+interactor = NodePath("..")
+indicatorScene = ExtResource("4_a5t7g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_46jda")
+debug_color = Color(0.558625, 0.483235, 0.753086, 0.42)
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("5_wsxbo")

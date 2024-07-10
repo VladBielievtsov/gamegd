@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://ccble4dlvxyv7"]
+
+[ext_resource type="Texture2D" uid="uid://cfvfhoaboirb7" path="res://Assets/sprites/SproutLandsSprites/Objects/Free_Chicken_House.png" id="1_5pfxf"]
+[ext_resource type="PackedScene" uid="uid://cg1gn84batl5f" path="res://Objects/Shop/ShopUI.tscn" id="2_bll6q"]
+[ext_resource type="Script" path="res://Objects/Shop/OpenShopInteractable.gd" id="3_mqmwn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pusg3"]
+size = Vector2(32, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qut71"]
+size = Vector2(32, 21)
+
+[node name="Shop" type="Node2D"]
+
+[node name="Shop" type="Sprite2D" parent="."]
+texture = ExtResource("1_5pfxf")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Shop"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shop/StaticBody2D"]
+position = Vector2(0, 9.5)
+shape = SubResource("RectangleShape2D_pusg3")
+
+[node name="ShopUI" parent="." instance=ExtResource("2_bll6q")]
+visible = false
+clip_contents = true
+custom_minimum_size = Vector2(140, 100)
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -35.0
+offset_top = -79.0
+offset_right = 105.0
+offset_bottom = 21.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.5, 0.5)
+
+[node name="OpenShopInteractable" type="Area2D" parent="." node_paths=PackedStringArray("ShopUI")]
+script = ExtResource("3_mqmwn")
+ShopUI = NodePath("../ShopUI")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OpenShopInteractable"]
+position = Vector2(0, 9.5)
+shape = SubResource("RectangleShape2D_qut71")
+debug_color = Color(0.552089, 0.440446, 0.90341, 0.42)
